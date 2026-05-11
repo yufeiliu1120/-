@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cl5ei4tosvxvu"]
+
+[ext_resource type="Script" uid="uid://dp4unqyrs386h" path="res://scenes/UI_parts/battle_ui/ActionButton.gd" id="1_8vlip"]
+
+[node name="Button" type="Button" unique_id=317046269]
+offset_right = 18.0
+offset_bottom = 16.0
+script = ExtResource("1_8vlip")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

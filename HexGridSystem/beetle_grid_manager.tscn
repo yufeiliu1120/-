@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b3ytshyai1m3e"]
+
+[ext_resource type="Script" uid="uid://f2vqdyo4jqmc" path="res://HexGridSystem/beetle_grid_manager.gd" id="1_66kg4"]
+
+[node name="BeetleGridManager" type="Node2D" unique_id=2109169929]
+script = ExtResource("1_66kg4")

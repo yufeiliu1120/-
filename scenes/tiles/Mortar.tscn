@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dabgd14je0l8w"]
+
+[ext_resource type="Script" uid="uid://c80wpiatw4cr1" path="res://HexGridSystem/tile_base.gd" id="1_ftiyi"]
+[ext_resource type="Resource" uid="uid://dyvte3raxqn6h" path="res://resources/mortar_attack.tres" id="2_6wusy"]
+[ext_resource type="Texture2D" uid="uid://7s774qa2jy17" path="res://asset/test_tile2.png" id="2_3273f"]
+[ext_resource type="Script" uid="uid://de2b3jo7fw8i" path="res://HexGridSystem/state_machine.gd" id="3_6wusy"]
+[ext_resource type="Script" uid="uid://b31d65iv3bbf0" path="res://HexGridSystem/state_dragging.gd" id="4_owf52"]
+[ext_resource type="Script" uid="uid://bap133tqcwmmn" path="res://HexGridSystem/placed.gd" id="5_xmjqu"]
+
+[node name="Mortar" type="Node2D" unique_id=520011061]
+script = ExtResource("1_ftiyi")
+granted_action = ExtResource("2_6wusy")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2123987631]
+texture = ExtResource("2_3273f")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1550570915 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_6wusy")
+initial_state = NodePath("Dragging")
+
+[node name="Dragging" type="Node" parent="StateMachine" unique_id=1714326342]
+script = ExtResource("4_owf52")
+
+[node name="Placed" type="Node" parent="StateMachine" unique_id=577146937]
+script = ExtResource("5_xmjqu")

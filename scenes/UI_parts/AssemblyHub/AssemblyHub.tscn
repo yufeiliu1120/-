@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://gu34hkbe6ddk"]
+
+[ext_resource type="Script" uid="uid://cwey54uoyl2gi" path="res://scenes/UI_parts/AssemblyHub/assembly_hub.gd" id="1_r106x"]
+
+[node name="Control" type="Control" unique_id=895487477 node_paths=PackedStringArray("slot_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_r106x")
+slot_container = NodePath("PanelContainer/VBoxContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=637546345]
+layout_mode = 0
+offset_left = 1403.0
+offset_top = 33.0
+offset_right = 1882.0
+offset_bottom = 1037.0
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1947481533]
+layout_mode = 2
+mouse_filter = 2

@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b2llijgkgrk7n"]
+
+[ext_resource type="Script" uid="uid://dvjva04ju71l5" path="res://battle_system_frame/combat_manager.gd" id="1_6n2bx"]
+
+[node name="CombatManager" type="Node" unique_id=1037297855]
+script = ExtResource("1_6n2bx")

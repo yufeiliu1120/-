@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dwy7wj3jpinxk"]
+
+[ext_resource type="Script" uid="uid://caf735q3371hg" path="res://scenes/beetles/beetle_base.gd" id="1_hm1ql"]
+[ext_resource type="Script" uid="uid://f2vqdyo4jqmc" path="res://HexGridSystem/beetle_grid_manager.gd" id="2_4q0jp"]
+[ext_resource type="PackedScene" uid="uid://bnw1wttrj2eee" path="res://HexGridSystem/hex_slot.tscn" id="3_hfpbr"]
+[ext_resource type="Script" uid="uid://wd4ji306wwog" path="res://battle_system_frame/CombatEntity.gd" id="4_85dom"]
+
+[node name="Beetle" type="Node2D" unique_id=928220379]
+script = ExtResource("1_hm1ql")
+metadata/_edit_vertical_guides_ = [64.0, -64.0]
+
+[node name="Visible" type="Node2D" parent="." unique_id=1767044435]
+
+[node name="BeetleGridManager" type="Node2D" parent="." unique_id=2117141636]
+script = ExtResource("2_4q0jp")
+metadata/_custom_type_script = "uid://f2vqdyo4jqmc"
+
+[node name="HexSlot" parent="BeetleGridManager" unique_id=550151326 instance=ExtResource("3_hfpbr")]
+
+[node name="HexSlot2" parent="BeetleGridManager" unique_id=1390533107 instance=ExtResource("3_hfpbr")]
+position = Vector2(64, 0)
+
+[node name="HexSlot3" parent="BeetleGridManager" unique_id=1233716883 instance=ExtResource("3_hfpbr")]
+position = Vector2(-64, 0)
+
+[node name="CombatEntity" type="Node2D" parent="." unique_id=727043373]
+script = ExtResource("4_85dom")
+metadata/_custom_type_script = "uid://wd4ji306wwog"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1783053031]

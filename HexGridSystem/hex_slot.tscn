@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bnw1wttrj2eee"]
+
+[ext_resource type="Script" uid="uid://datjbclf6c3un" path="res://HexGridSystem/hex_slot.gd" id="1_kj3rv"]
+[ext_resource type="Texture2D" uid="uid://cjvvc6r4sp3jw" path="res://asset/test_tile.png" id="2_n74xu"]
+
+[node name="HexSlot" type="Node2D" unique_id=550151326]
+script = ExtResource("1_kj3rv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=346594700]
+scale = Vector2(-0.14, -0.14)
+texture = ExtResource("2_n74xu")
