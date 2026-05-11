@@ -21,7 +21,8 @@ signal turn_submitted(final_queue: Array[ActionData])
 
 func _ready() -> void:
 	submit_button.pressed.connect(_on_submit_pressed)
-
+	if player_entity and enemy_entity:
+		refresh_timeline_ui()
 # ==========================================
 # 核心接口：绑定双方实体
 # ==========================================
@@ -46,6 +47,11 @@ func bind_entities(p_entity: CombatEntity, e_entity: CombatEntity) -> void:
 # UI 刷新：生成时间轴和动作池
 # ==========================================
 func refresh_timeline_ui() -> void:
+	if not is_node_ready(): 
+		return 
+	if player_entity == null or enemy_entity == null: 
+		return
+		
 	if player_entity == null or enemy_entity == null: return
 	
 	# 1. 刷新基础信息

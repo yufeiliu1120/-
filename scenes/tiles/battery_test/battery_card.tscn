@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://grc0ktbyfxjq"]
+
+[ext_resource type="Texture2D" uid="uid://ccrg2lhh3f683" path="res://asset/test_card.png" id="1_81tn2"]
+[ext_resource type="Script" uid="uid://d1c0bvodwcdtr" path="res://scenes/UI_parts/AssemblyHub/card.gd" id="2_vlkqb"]
+[ext_resource type="PackedScene" uid="uid://m4yd1wu8q7oy" path="res://scenes/tiles/battery_test/battery.tscn" id="3_wnqqa"]
+
+[node name="Battery_card" type="TextureRect" unique_id=699468790]
+anchors_preset = -1
+anchor_right = 0.05
+anchor_bottom = 0.119
+offset_right = -56.0
+offset_bottom = -88.520004
+mouse_filter = 0
+texture = ExtResource("1_81tn2")
+script = ExtResource("2_vlkqb")
+tile_scene = ExtResource("3_wnqqa")

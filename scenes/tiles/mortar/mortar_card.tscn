@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cbt3mj8hva1hi"]
+
+[ext_resource type="Texture2D" uid="uid://ccrg2lhh3f683" path="res://asset/test_card.png" id="1_0fn8o"]
+[ext_resource type="Script" uid="uid://d1c0bvodwcdtr" path="res://scenes/UI_parts/AssemblyHub/card.gd" id="2_vys4w"]
+[ext_resource type="PackedScene" uid="uid://dabgd14je0l8w" path="res://scenes/tiles/mortar/Mortar.tscn" id="3_wtepi"]
+
+[node name="Mortar_card" type="TextureRect" unique_id=699468790]
+anchors_preset = -1
+anchor_right = 0.05
+anchor_bottom = 0.119
+offset_right = -56.0
+offset_bottom = -88.520004
+mouse_filter = 0
+texture = ExtResource("1_0fn8o")
+script = ExtResource("2_vys4w")
+tile_scene = ExtResource("3_wtepi")

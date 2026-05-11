@@ -1,6 +1,7 @@
 class_name ActionData
 extends Resource
 
+var source_tile = null
 # ==========================================
 # 定义动作的类型枚举（极其重要）
 # 以后结算器就是靠这个枚举来判断动作克制关系的（比如闪避躲避攻击）

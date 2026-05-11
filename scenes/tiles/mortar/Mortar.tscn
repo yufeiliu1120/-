@@ -10,6 +10,8 @@
 [node name="Mortar" type="Node2D" unique_id=520011061]
 script = ExtResource("1_ftiyi")
 granted_action = ExtResource("2_6wusy")
+bonus_max_hp = 5
+bonus_max_ap = 5
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2123987631]
 texture = ExtResource("2_3273f")
@@ -23,3 +25,11 @@ script = ExtResource("4_owf52")
 
 [node name="Placed" type="Node" parent="StateMachine" unique_id=577146937]
 script = ExtResource("5_xmjqu")
+
+[node name="Label" type="Label" parent="." unique_id=1865718642]
+offset_left = -30.0
+offset_top = -13.0
+offset_right = 30.0
+offset_bottom = 15.0
+text = "Mortar"
+horizontal_alignment = 1

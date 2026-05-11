@@ -1,38 +1,15 @@
 [gd_scene format=3 uid="uid://bqwxd6ldexfpo"]
 
-[ext_resource type="Script" uid="uid://dvjva04ju71l5" path="res://battle_system_frame/combat_manager.gd" id="1_bl13t"]
 [ext_resource type="Script" uid="uid://b6nxjkpr064tg" path="res://scenes/test.gd" id="1_lpvoh"]
-[ext_resource type="PackedScene" uid="uid://buwfdrw4p5fjl" path="res://scenes/UI_parts/battle_ui/action_ui_manager.tscn" id="3_74lek"]
-[ext_resource type="Script" uid="uid://ckh1jevqf8wso" path="res://battle_system_frame/ActionResolver.gd" id="4_j5jx5"]
 [ext_resource type="PackedScene" uid="uid://dwy7wj3jpinxk" path="res://scenes/beetles/beetle_base.tscn" id="5_at5dv"]
 [ext_resource type="PackedScene" uid="uid://gu34hkbe6ddk" path="res://scenes/UI_parts/AssemblyHub/AssemblyHub.tscn" id="6_jcd4p"]
 
 [node name="Node2D" type="Node2D" unique_id=1138120235]
 script = ExtResource("1_lpvoh")
 
-[node name="CombatManager" type="Node" parent="." unique_id=2075469606 node_paths=PackedStringArray("ui_manager", "action_resolver")]
-script = ExtResource("1_bl13t")
-ui_manager = NodePath("../CanvasLayer/ActionUIManager")
-action_resolver = NodePath("ActionResolver")
-metadata/_custom_type_script = "uid://dvjva04ju71l5"
-
-[node name="ActionResolver" type="Node" parent="CombatManager" unique_id=282404128]
-script = ExtResource("4_j5jx5")
-metadata/_custom_type_script = "uid://ckh1jevqf8wso"
-
 [node name="BeetleWarship" parent="." unique_id=928220379 instance=ExtResource("5_at5dv")]
 position = Vector2(337, 433)
-
-[node name="EnemyWarship" parent="." unique_id=926072227 instance=ExtResource("5_at5dv")]
-position = Vector2(866, 453)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1769022710]
 
 [node name="AssemblyHub" parent="CanvasLayer" unique_id=895487477 instance=ExtResource("6_jcd4p")]
-
-[node name="ActionUIManager" parent="CanvasLayer" unique_id=1211023341 instance=ExtResource("3_74lek")]
-
-[node name="Button" type="Button" parent="CanvasLayer" unique_id=1742144378]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "combatButton"

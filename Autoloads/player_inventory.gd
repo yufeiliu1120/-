@@ -1,7 +1,7 @@
 extends Node
 
 # 玩家拥有的地块卡牌路径数组
-var card_backpack: Array[String] = ["res://scenes/UI_parts/AssemblyHub/Cards.tscn","res://scenes/UI_parts/AssemblyHub/Cards.tscn","res://scenes/UI_parts/AssemblyHub/Cards.tscn"]
+var card_backpack: Array[String] = ["res://scenes/tiles/mortar/mortar_card.tscn","res://scenes/tiles/battery_test/battery_card.tscn"]
 
 # 提供一个辅助方法：消耗地块
 func consume_card(card_path: String) -> void:

@@ -72,21 +72,48 @@ func show_grid_helpers(is_visible: bool) -> void:
 # ==========================================
 # 当地块发生变动时，一定要调用这个
 func recalculate_all_buffs() -> void:
-	var actions: Array[ActionData] = []
-	var hp_bonus: int = 0
-	var ap_bonus: int = 0
+	var all_tiles = _get_all_placed_tiles()
 	
-	# 遍历所有子节点（HexSlot）
-	for slot in get_children():
-		if slot.has_method("get_tile"): # 确保是槽位节点
+	# 1. 【重置阶段】让所有地块准备好干净的副本作战数据
+	for tile in all_tiles:
+		tile.clear_buffs()
+		
+	# 2. 【Buff结算阶段】让所有地块发挥自己的相邻/全局效果
+	for coords in hex_grid.keys():
+		var slot = hex_grid[coords]
+		if not slot.is_empty():
 			var tile = slot.get_tile()
-			if tile:
-				# 累加地块提供的属性
-				hp_bonus += tile.bonus_max_hp
-				ap_bonus += tile.bonus_max_ap
-				if tile.granted_action:
-					actions.append(tile.granted_action)
+			
+			# 传入真正的邻居地块数组，触发地块自身的逻辑！
+			var neighbors = _get_occupied_neighbor_tiles(coords)
+			tile.apply_adjacent_buff(neighbors)
+			tile.apply_global_buff(all_tiles) # 全局效果也可以紧接着触发
+			
+	# 3. 【汇总阶段】收集所有地块最终的 combat_xxx 数据
+	var total_actions: Array[ActionData] = []
+	var total_hp: int = 0
+	var total_ap: int = 0
 	
-	# 将统计结果推送给实体
-	if player_entity:
-		player_entity.update_from_grid(actions, hp_bonus, ap_bonus)
+	for tile in all_tiles:
+		if tile.combat_action != null:
+			total_actions.append(tile.combat_action)
+		total_hp += tile.combat_bonus_hp
+		total_ap += tile.combat_bonus_ap
+		
+	# 推送给实体（切记 CombatEntity 里直接接收 action_pool = grid_actions 即可，不需要再 duplicate 了）
+	if player_entity != null:
+		player_entity.update_from_grid(total_actions, total_hp, total_ap)
+
+
+func get_adjacent_slots(coords: Vector2i) -> Array[HexSlot]:
+	var neighbors: Array[HexSlot] = []
+	
+	# NEIGHBOR_OFFSETS 是你在代码里写好的 6 个方向的偏移量
+	for offset in NEIGHBOR_OFFSETS:
+		var target_coord = coords + offset
+		
+		# hex_grid 是你存所有槽位的字典，这行实现了 O(1) 复杂度的瞬间查找！
+		if hex_grid.has(target_coord):
+			neighbors.append(hex_grid[target_coord])
+			
+	return neighbors

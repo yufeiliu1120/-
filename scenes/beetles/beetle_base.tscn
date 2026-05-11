@@ -19,9 +19,11 @@ metadata/_custom_type_script = "uid://f2vqdyo4jqmc"
 
 [node name="HexSlot2" parent="BeetleGridManager" unique_id=1390533107 instance=ExtResource("3_hfpbr")]
 position = Vector2(64, 0)
+axial_coords = Vector2i(1, 0)
 
 [node name="HexSlot3" parent="BeetleGridManager" unique_id=1233716883 instance=ExtResource("3_hfpbr")]
 position = Vector2(-64, 0)
+axial_coords = Vector2i(-1, 0)
 
 [node name="CombatEntity" type="Node2D" parent="." unique_id=727043373]
 script = ExtResource("4_85dom")

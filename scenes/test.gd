@@ -11,15 +11,6 @@ func _ready() -> void:
 	# 告诉拼装中枢，地块要往哪艘船上放
 	assembly_hub.grid_manager = player_warship.grid_manager
 	
-	# 2. 初始化战斗 UI
-	# 绑定玩家和敌人的实体数据
-	combat_ui.bind_entities(
-		player_warship.get_entity(), 
-		enemy_warship.get_entity()
-	)
-	
-	# 3. 按钮连接
-	$CanvasLayer/StartCombatButton.pressed.connect(_on_start_combat_pressed)
 
 func _on_start_combat_pressed() -> void:
 	print("进入战斗模式！")
