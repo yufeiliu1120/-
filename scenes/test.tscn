@@ -1,15 +1,34 @@
 [gd_scene format=3 uid="uid://bqwxd6ldexfpo"]
 
 [ext_resource type="Script" uid="uid://b6nxjkpr064tg" path="res://scenes/test.gd" id="1_lpvoh"]
-[ext_resource type="PackedScene" uid="uid://dwy7wj3jpinxk" path="res://scenes/beetles/beetle_base.tscn" id="5_at5dv"]
-[ext_resource type="PackedScene" uid="uid://gu34hkbe6ddk" path="res://scenes/UI_parts/AssemblyHub/AssemblyHub.tscn" id="6_jcd4p"]
+[ext_resource type="PackedScene" uid="uid://b2llijgkgrk7n" path="res://battle_system_frame/CombatManager.tscn" id="3_iyx0m"]
+[ext_resource type="PackedScene" uid="uid://buwfdrw4p5fjl" path="res://scenes/UI_parts/battle_ui/action_ui_manager.tscn" id="5_jcd4p"]
+[ext_resource type="Script" uid="uid://ckh1jevqf8wso" path="res://battle_system_frame/ActionResolver.gd" id="6_uacia"]
 
-[node name="Node2D" type="Node2D" unique_id=1138120235]
+[node name="Node2D" type="Node2D" unique_id=1138120235 node_paths=PackedStringArray("combat_manager", "start_battle_button")]
 script = ExtResource("1_lpvoh")
+combat_manager = NodePath("CombatManager")
+start_battle_button = NodePath("CanvasLayer/battle_start")
 
-[node name="BeetleWarship" parent="." unique_id=928220379 instance=ExtResource("5_at5dv")]
-position = Vector2(337, 433)
+[node name="CombatManager" parent="." unique_id=1037297855 node_paths=PackedStringArray("ui_manager", "action_resolver") instance=ExtResource("3_iyx0m")]
+ui_manager = NodePath("../CanvasLayer/ActionUIManager")
+action_resolver = NodePath("ActionResolver")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1769022710]
+[node name="ActionResolver" type="Node" parent="CombatManager" unique_id=2056764537]
+script = ExtResource("6_uacia")
+metadata/_custom_type_script = "uid://ckh1jevqf8wso"
 
-[node name="AssemblyHub" parent="CanvasLayer" unique_id=895487477 instance=ExtResource("6_jcd4p")]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=251272865]
+
+[node name="ActionUIManager" parent="CanvasLayer" unique_id=1211023341 instance=ExtResource("5_jcd4p")]
+
+[node name="battle_start" type="Button" parent="CanvasLayer" unique_id=1457095794]
+offset_left = 851.0
+offset_top = 33.0
+offset_right = 1042.0
+offset_bottom = 99.0
+text = "start battle"
+
+[node name="ShipSlot" type="Node2D" parent="." unique_id=1121356807 groups=["ShipSlot"]]
+
+[connection signal="pressed" from="CanvasLayer/battle_start" to="." method="_on_battle_start_pressed"]

@@ -59,7 +59,6 @@ func _unhandled_input(event: InputEvent) -> void:
 				# ======= 放置成功 =======
 					actor.current_slot = target_slot
 					target_slot.place_tile(actor)
-				
 					actor.grid_manager.recalculate_all_buffs()
 				
 				# 【核心修改】：只对全新的地块发出信号并扣除UI数量！
@@ -68,7 +67,7 @@ func _unhandled_input(event: InputEvent) -> void:
 							actor.tile_successfully_placed.emit(actor.data_id)
 					# 扣除后，标记为“老地块”，以后在甲虫背上搬家就不会再扣钱了
 						actor.is_new_from_ui = false 
-				
+					print("地块放置成功")
 					state_finished.emit("Placed")
 				else:
 					# ======= 放置失败：挂点已被占用 =======

@@ -6,7 +6,7 @@ var grid_manager: BeetleGridManager = null
 var current_slot: HexSlot = null
 var is_new_from_ui: bool = true
 var data_id: String = "" 
-
+@export var state_machine:Node
 @export var granted_action: ActionData
 @export var bonus_max_hp: int = 0  
 @export var bonus_max_ap: int = 0  

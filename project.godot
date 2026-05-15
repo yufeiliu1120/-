@@ -16,6 +16,7 @@ config/features=PackedStringArray("4.6", "Forward Plus")
 [autoload]
 
 PlayerInventoryManager="*uid://cm0s1osjmmso0"
+PlayerBlueprintManager="*uid://pwmllk3kykhf"
 
 [display]
 
@@ -26,6 +27,9 @@ window/stretch/mode="viewport"
 [global_group]
 
 GridManager=""
+Ships=""
+PlayerShip=""
+ShipSlot=""
 
 [input]
 

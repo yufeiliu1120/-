@@ -1,15 +1,32 @@
 extends Control
 
 @export var slot_container: VBoxContainer # 指向你用来垂直排列所有Slot的容器
-@export var grid_manager: BeetleGridManager # 将场景里的网格管理器拖进来！
-
+var grid_manager: BeetleGridManager # 将场景里的网格管理器拖进来！
+@export var finish_button: Button
 const CardSlotScene = preload("res://scenes/UI_parts/AssemblyHub/card_slot.tscn") # 替换为你的Slot场景路径
-
+signal assembly_finished
 var card_counts: Dictionary = {} # 记录：{"res://.../MortarCard.tscn": 3}
 var active_slots: Dictionary = {} # 记录：{"res://.../MortarCard.tscn": 对应的Slot节点实例}
 
 func _ready() -> void:
+	# 【核心修改】：不再自动刷新 UI，等待外部总控脚本手动调用
+	if finish_button:
+		finish_button.pressed.connect(_on_finish_button_pressed)
+	hide()
+# ==========================================
+# 【新增】：手动启动拼装系统的入口
+# ==========================================
+func start_assembly() -> void:
+	#寻找玩家网格管理器节点
+	print("🔧 AssemblyHub: 正在初始化拼装界面...")
+	grid_manager = get_tree().get_first_node_in_group("PlayerShip").grid_manager
+	if grid_manager:
+		print("找到玩家网格管理器")
+	else:
+		push_error("玩家战舰网格管理器未发现")
+	show() # 确保界面是显示状态
 	refresh_assembly_ui()
+	print("✅ 拼装界面就绪，等待玩家操作。")
 
 func refresh_assembly_ui() -> void:
 	# 1. 清理旧数据和旧UI
@@ -50,23 +67,42 @@ func _on_slot_request_drag(new_tile: BaseTile, card_path: String) -> void:
 		new_tile.get_node("StateMachine").change_state("Dragging")
 
 # 当地块在网格上真正放置成功时触发
-func _on_tile_placed(card_path: String) -> void:
-	if card_counts.has(card_path):
-		# 1. 字典数量 -1
-		card_counts[card_path] -= 1
+func _on_tile_placed(data_id: String) -> void:
+	print("地块放置成功，从背包中扣除: ", data_id)
+	# 从背包中移除
+	if PlayerInventoryManager.card_backpack.has(data_id):
+		PlayerInventoryManager.card_backpack.erase(data_id)
+	refresh_assembly_ui()
+
+# 当地块被玩家从网格上拆除（退回）时调用
+func _on_tile_removed(data_id: String) -> void:
+	print("地块被拆除，退回背包: ", data_id)
+	PlayerInventoryManager.card_backpack.append(data_id)
+	refresh_assembly_ui()
+	
+	
+func _on_finish_button_pressed() -> void:
+	print("💾 玩家点击了完成拼装，正在打包图纸...")
+	
+	# 1. 呼叫快递驿站，清空上一把的旧图纸
+	PlayerBlueprintManager.clear_blueprint()
+	
+	# 2. 遍历网格管理器中的所有槽位
+	for coord in grid_manager.hex_grid:
+		var slot = grid_manager.hex_grid[coord]
 		
-		# 2. 真实背包数据扣减（假设你在 PlayerInventoryManager 里写了这个方法）
-		var index = PlayerInventoryManager.card_backpack.find(card_path)
-		if index != -1:
-			PlayerInventoryManager.card_backpack.remove_at(index)
-		
-		# 3. 更新UI
-		var current_slot = active_slots[card_path]
-		if card_counts[card_path] > 0:
-			# 如果还有剩余，只更新数字
-			current_slot.update_count(card_counts[card_path])
-		else:
-			# 如果抽干了，销毁这个槽位并清理字典
-			current_slot.queue_free()
-			active_slots.erase(card_path)
-			card_counts.erase(card_path)
+		# 如果槽位里有东西
+		if not slot.is_empty():
+			var tile = slot.get_tile()
+			# 确保地块身上有我们要的 data_id（卡牌场景路径）
+			if "data_id" in tile and tile.data_id != "":
+				# 写入单例！
+				PlayerBlueprintManager.save_tile(coord, tile.data_id)
+			else:
+				push_warning("⚠️ 警告：位于 %s 的地块缺少 data_id，无法保存！" % str(coord))
+	
+	# 3. 打印出来确认一下数据对不对
+	PlayerBlueprintManager.print_blueprint()
+	
+	# 4. 发出交接信号，让外面的总控场景知道可以开始战斗（或者切换场景）了
+	assembly_finished.emit()

@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DodgeAction" format=3 uid="uid://cnbnbq0w2vww5"]
+
+[ext_resource type="Script" uid="uid://d1e75finpbivy" path="res://battle_system_frame/BaseActions/BaseDodgeAction.gd" id="1_5r7vl"]
+
+[resource]
+script = ExtResource("1_5r7vl")
+action_name = "闪避"
+metadata/_custom_type_script = "uid://d1e75finpbivy"

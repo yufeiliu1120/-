@@ -4,7 +4,6 @@ extends Control
 # --- 预加载组件 ---
 # 在检查器中，把你做好的 ActionButton.tscn 拖到这里！
 @export var action_button_scene: PackedScene 
-
 # --- UI 节点引用 ---
 @onready var ap_label: Label = $APLabel
 @onready var timeline_container: HBoxContainer = $TimelineContainer # 时间轴容器
@@ -23,6 +22,7 @@ func _ready() -> void:
 	submit_button.pressed.connect(_on_submit_pressed)
 	if player_entity and enemy_entity:
 		refresh_timeline_ui()
+	hide()
 # ==========================================
 # 核心接口：绑定双方实体
 # ==========================================
@@ -47,13 +47,9 @@ func bind_entities(p_entity: CombatEntity, e_entity: CombatEntity) -> void:
 # UI 刷新：生成时间轴和动作池
 # ==========================================
 func refresh_timeline_ui() -> void:
-	if not is_node_ready(): 
-		return 
-	if player_entity == null or enemy_entity == null: 
+	if not is_node_ready() or player_entity == null or enemy_entity == null: 
 		return
-		
-	if player_entity == null or enemy_entity == null: return
-	
+
 	# 1. 刷新基础信息
 	ap_label.text = "当前 AP: %d / %d" % [player_entity.current_ap, player_entity.max_ap]
 	# 如果玩家没选任何动作，就禁用提交按钮（按需保留）
@@ -103,7 +99,6 @@ func refresh_timeline_ui() -> void:
 	for action in player_entity.action_pool:
 		var btn = action_button_scene.instantiate() as ActionButton
 		pool_container.add_child(btn)
-		
 		# 获取该技能的剩余冷却回合数
 		var cd = player_entity.cooldown_tracker.get(action, 0)
 		btn.setup(action, player_entity.current_ap, cd, false)
@@ -146,3 +141,4 @@ func _on_submit_pressed() -> void:
 	print("玩家点击了结束回合，提交动作数：", player_entity.current_action_queue.size())
 	# 使用 duplicate() 防止后续结算时队列引用被意外修改
 	turn_submitted.emit(player_entity.current_action_queue.duplicate())
+	

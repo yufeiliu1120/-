@@ -5,22 +5,27 @@
 [ext_resource type="Script" uid="uid://de2b3jo7fw8i" path="res://HexGridSystem/state_machine.gd" id="3_lc7my"]
 [ext_resource type="Script" uid="uid://b31d65iv3bbf0" path="res://HexGridSystem/state_dragging.gd" id="4_4miru"]
 [ext_resource type="Script" uid="uid://bap133tqcwmmn" path="res://HexGridSystem/placed.gd" id="5_yyfb6"]
+[ext_resource type="Script" uid="uid://r8qge5p253ur" path="res://HexGridSystem/state_idle.gd" id="6_tlp8r"]
 
-[node name="battery" type="Node2D" unique_id=520011061]
+[node name="battery" type="Node2D" unique_id=520011061 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("1_vutdl")
+state_machine = NodePath("StateMachine")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2123987631]
 texture = ExtResource("2_tlp8r")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1550570915 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_lc7my")
-initial_state = NodePath("Dragging")
+initial_state = NodePath("Idle")
 
 [node name="Dragging" type="Node" parent="StateMachine" unique_id=1714326342]
 script = ExtResource("4_4miru")
 
 [node name="Placed" type="Node" parent="StateMachine" unique_id=577146937]
 script = ExtResource("5_yyfb6")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1492179497]
+script = ExtResource("6_tlp8r")
 
 [node name="Label" type="Label" parent="." unique_id=1865718642]
 offset_left = -30.0

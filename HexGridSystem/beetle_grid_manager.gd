@@ -60,11 +60,6 @@ func _get_occupied_neighbor_tiles(target_coords: Vector2i) -> Array:
 				neighbors.append(neighbor_slot.get_tile())
 	return neighbors
 
-func show_grid_helpers(is_visible: bool) -> void:
-	for slot in get_children():
-		if slot is HexSlot:
-			# 假设你的 HexSlot 下有一个用于显示的 Sprite2D
-			slot.set_helper_visible(is_visible)
 			
 # ==========================================
 # 核心逻辑：全局 Buff 计算调度

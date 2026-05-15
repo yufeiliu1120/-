@@ -1,21 +1,43 @@
 extends Node
 
-@onready var player_warship = $BeetleWarship
-@onready var enemy_warship = $EnemyWarship # 同样的模板，只是动作池不同
-@onready var combat_manager = $CombatManager
-@onready var combat_ui = $CanvasLayer/ActionUIManager
-@onready var assembly_hub = $CanvasLayer/AssemblyHub
+# ==========================================
+# 核心系统引用（请在检查器中拖入对应的节点）
+# ==========================================
+@export var combat_manager: CombatManager
+@export var start_battle_button: Button # 你的“出击”按钮
+var test_enemy = preload("res://scenes/beetles/beetle_base.tscn")
 
 func _ready() -> void:
-	# 1. 初始化拼装系统
-	# 告诉拼装中枢，地块要往哪艘船上放
-	assembly_hub.grid_manager = player_warship.grid_manager
+	combat_manager.ui_manager.hide()
+	print("🌟 测试场景加载完毕，正在准备流程...")
+	# 1. 绑定出击按钮
+	if start_battle_button:
+		start_battle_button.pressed.connect(_on_start_battle_pressed)
+	else:
+		push_error("未绑定出击按钮！")
 	
 
-func _on_start_combat_pressed() -> void:
-	print("进入战斗模式！")
-	# 隐藏拼装UI，锁定网格
-	assembly_hub.hide()
+
+# ==========================================
+# 流程交接：拼装 -> 战斗
+# ==========================================
+func _on_start_battle_pressed() -> void:
+	print("\n>>> 🚀 玩家点击了出击，正在交接系统！ <<<")
+	var enemy = test_enemy.instantiate()
+	add_child(enemy)
+	var player_war_ship = PlayerBlueprintManager.build_ship(load("res://scenes/beetles/beetle_base.tscn"),true)
+	player_war_ship.global_position = Vector2(950,550)
 	
-	# 启动回合管理器，开始战斗循环
-	combat_manager.change_state(combat_manager.CombatState.TURN_START)
+	if player_war_ship:
+		print("玩家战舰初始化成功")
+	else:
+		push_error("玩家战舰初始化失败")
+	# 1. 隐藏拼装阶段的 UI
+	if start_battle_button:
+		start_battle_button.hide()
+		
+	# 3. 正式把控制权交给战斗系统！
+	if combat_manager:
+		combat_manager.start_battle()
+		combat_manager.ui_manager.show()
+		

@@ -1,12 +1,9 @@
-[gd_resource type="Resource" script_class="ActionData" format=3 uid="uid://dyvte3raxqn6h"]
+[gd_resource type="Resource" script_class="AttackAction" format=3 uid="uid://dyvte3raxqn6h"]
 
-[ext_resource type="Texture2D" uid="uid://7s774qa2jy17" path="res://asset/test_tile2.png" id="1_hgg8q"]
-[ext_resource type="Script" uid="uid://ddmv6ioep4lea" path="res://battle_system_frame/ActionData.gd" id="1_l44vl"]
+[ext_resource type="Script" uid="uid://c00uhf6gjitj1" path="res://battle_system_frame/BaseActions/BaseAttackAction.gd" id="1_l44vl"]
 
 [resource]
 script = ExtResource("1_l44vl")
 action_name = "臼炮射击"
-action_icon = ExtResource("1_hgg8q")
 base_cooldown = 1
-power_value = 2
-metadata/_custom_type_script = "uid://ddmv6ioep4lea"
+metadata/_custom_type_script = "uid://c00uhf6gjitj1"

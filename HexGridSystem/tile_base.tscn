@@ -5,19 +5,24 @@
 [ext_resource type="Script" uid="uid://de2b3jo7fw8i" path="res://HexGridSystem/state_machine.gd" id="3_3er3f"]
 [ext_resource type="Script" uid="uid://b31d65iv3bbf0" path="res://HexGridSystem/state_dragging.gd" id="4_8qohp"]
 [ext_resource type="Script" uid="uid://bap133tqcwmmn" path="res://HexGridSystem/placed.gd" id="5_pk6xa"]
+[ext_resource type="Script" uid="uid://r8qge5p253ur" path="res://HexGridSystem/state_idle.gd" id="6_3er3f"]
 
-[node name="Node2D" type="Node2D" unique_id=520011061]
+[node name="Node2D" type="Node2D" unique_id=520011061 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("1_6t3m0")
+state_machine = NodePath("StateMachine")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=2123987631]
 texture = ExtResource("2_pk6xa")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1550570915 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_3er3f")
-initial_state = NodePath("Dragging")
+initial_state = NodePath("Idle")
 
 [node name="Dragging" type="Node" parent="StateMachine" unique_id=1714326342]
 script = ExtResource("4_8qohp")
 
 [node name="Placed" type="Node" parent="StateMachine" unique_id=577146937]
 script = ExtResource("5_pk6xa")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=90013915]
+script = ExtResource("6_3er3f")

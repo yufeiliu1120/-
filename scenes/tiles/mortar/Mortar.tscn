@@ -1,15 +1,23 @@
 [gd_scene format=3 uid="uid://dabgd14je0l8w"]
 
 [ext_resource type="Script" uid="uid://c80wpiatw4cr1" path="res://HexGridSystem/tile_base.gd" id="1_ftiyi"]
-[ext_resource type="Resource" uid="uid://dyvte3raxqn6h" path="res://resources/mortar_attack.tres" id="2_6wusy"]
+[ext_resource type="Script" uid="uid://c00uhf6gjitj1" path="res://battle_system_frame/BaseActions/BaseAttackAction.gd" id="2_2jhah"]
 [ext_resource type="Texture2D" uid="uid://7s774qa2jy17" path="res://asset/test_tile2.png" id="2_3273f"]
 [ext_resource type="Script" uid="uid://de2b3jo7fw8i" path="res://HexGridSystem/state_machine.gd" id="3_6wusy"]
 [ext_resource type="Script" uid="uid://b31d65iv3bbf0" path="res://HexGridSystem/state_dragging.gd" id="4_owf52"]
 [ext_resource type="Script" uid="uid://bap133tqcwmmn" path="res://HexGridSystem/placed.gd" id="5_xmjqu"]
+[ext_resource type="Script" uid="uid://r8qge5p253ur" path="res://HexGridSystem/state_idle.gd" id="7_jyn2o"]
 
-[node name="Mortar" type="Node2D" unique_id=520011061]
+[sub_resource type="Resource" id="Resource_jyn2o"]
+script = ExtResource("2_2jhah")
+action_name = "臼炮射击"
+base_cooldown = 1
+metadata/_custom_type_script = "uid://c00uhf6gjitj1"
+
+[node name="Mortar" type="Node2D" unique_id=520011061 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("1_ftiyi")
-granted_action = ExtResource("2_6wusy")
+state_machine = NodePath("StateMachine")
+granted_action = SubResource("Resource_jyn2o")
 bonus_max_hp = 5
 bonus_max_ap = 5
 
@@ -18,13 +26,16 @@ texture = ExtResource("2_3273f")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1550570915 node_paths=PackedStringArray("initial_state")]
 script = ExtResource("3_6wusy")
-initial_state = NodePath("Dragging")
+initial_state = NodePath("Idle")
 
 [node name="Dragging" type="Node" parent="StateMachine" unique_id=1714326342]
 script = ExtResource("4_owf52")
 
 [node name="Placed" type="Node" parent="StateMachine" unique_id=577146937]
 script = ExtResource("5_xmjqu")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=538264140]
+script = ExtResource("7_jyn2o")
 
 [node name="Label" type="Label" parent="." unique_id=1865718642]
 offset_left = -30.0

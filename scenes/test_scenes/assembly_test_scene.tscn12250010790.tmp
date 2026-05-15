@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://bap77ap6yedcp"]
+
+[ext_resource type="PackedScene" uid="uid://gu34hkbe6ddk" path="res://scenes/UI_parts/AssemblyHub/AssemblyHub.tscn" id="1_rs54m"]
+[ext_resource type="Script" uid="uid://gru6pphavyup" path="res://scenes/test_scenes/assembly_test_scene.gd" id="1_w0x3m"]
+
+[node name="Assembly_test_scene" type="Node2D" unique_id=1441698315]
+script = ExtResource("1_w0x3m")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2130131255]
+
+[node name="AssumblyHub" parent="CanvasLayer" unique_id=895487477 instance=ExtResource("1_rs54m")]
+offset_left = -21.0
+offset_top = 7.0
+offset_right = -21.0
+offset_bottom = 7.0
+
+[node name="start_assumbly" type="Button" parent="CanvasLayer" unique_id=328242615]
+offset_left = 461.0
+offset_top = 36.0
+offset_right = 671.0
+offset_bottom = 79.0
+text = "Assembly"
+
+[node name="to_battle_test" type="Button" parent="CanvasLayer" unique_id=1995927978]
+offset_left = 470.0
+offset_top = 108.0
+offset_right = 663.0
+offset_bottom = 173.0
+text = "To Battle Test"
+
+[node name="ShipSlot" type="Node2D" parent="." unique_id=1463147237 groups=["ShipSlot"]]
+
+[connection signal="pressed" from="CanvasLayer/start_assumbly" to="." method="_on_assumble_hub_pressed"]
+[connection signal="pressed" from="CanvasLayer/to_battle_test" to="." method="_on_to_battle_test_pressed"]
